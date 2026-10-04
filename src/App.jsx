@@ -22,7 +22,7 @@ import {
 
 import { auth, db } from "./firebase";
 import "./App.css";
-
+const API_URL = "https://learnio-app-txke.onrender.com";
 // ======================================================
 // HELPERS
 // ======================================================

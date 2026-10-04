@@ -43,10 +43,15 @@ app.post("/students", async (req, res) => {
       course
     });
 
-    res.status(201).json({
-      message: "Student registered successfully!",
-      student
-    });
+   res.status(201).json({
+  message: "Student registered successfully!",
+  student: {
+    _id: student._id,
+    name: student.name,
+    email: student.email,
+    course: student.course
+  }
+});
   } catch (error) {
     res.status(500).json({
       message: "Student registration failed",
@@ -68,10 +73,15 @@ app.post("/teachers", async (req, res) => {
       subject
     });
 
-    res.status(201).json({
-      message: "Teacher registered successfully!",
-      teacher
-    });
+   res.status(201).json({
+  message: "Teacher registered successfully!",
+  teacher: {
+    _id: teacher._id,
+    name: teacher.name,
+    email: teacher.email,
+    subject: teacher.subject
+  }
+});
   } catch (error) {
     res.status(500).json({
       message: "Teacher registration failed",
@@ -197,4 +207,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
 console.log(`Server running on port ${PORT}`);
 });
+
 
