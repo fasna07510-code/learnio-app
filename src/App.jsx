@@ -636,7 +636,56 @@ export default function App() {
         profileData,
         { merge: true }
       );
+      // Save profile in MongoDB
+      if (role === "student") {
+        const response = await fetch(`${API_URL}/students`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name:
+              pendingRegistration?.name ||
+              user.displayName ||
+              user.email?.split("@")[0] ||
+              "User",
+            email: user.email || "",
+            course: "",
+          }),
+        });
 
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "Student MongoDB registration failed"
+          );
+        }
+      }
+
+      if (role === "teacher") {
+        const response = await fetch(`${API_URL}/teachers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name:
+              pendingRegistration?.name ||
+              user.displayName ||
+              user.email?.split("@")[0] ||
+              "User",
+            email: user.email || "",
+            subject: "",
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "Teacher MongoDB registration failed"
+          );
+        }
+      }
       const userSnap = await getDoc(
         doc(db, "users", user.uid)
       );

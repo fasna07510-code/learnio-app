@@ -31,7 +31,6 @@ app.get("/", (req, res) => {
 });
 
 // ==================== STUDENT REGISTRATION ====================
-
 app.post("/students", async (req, res) => {
   try {
     const { name, email, password, course } = req.body;
@@ -60,28 +59,27 @@ app.post("/students", async (req, res) => {
   }
 });
 
-// ==================== TEACHER REGISTRATION ====================
 
+// ==================== TEACHER REGISTRATION ====================
 app.post("/teachers", async (req, res) => {
   try {
-    const { name, email, password, subject } = req.body;
+    const { name, email, subject } = req.body;
 
     const teacher = await Teacher.create({
       name,
       email,
-      password,
       subject
     });
 
-   res.status(201).json({
-  message: "Teacher registered successfully!",
-  teacher: {
-    _id: teacher._id,
-    name: teacher.name,
-    email: teacher.email,
-    subject: teacher.subject
-  }
-});
+    res.status(201).json({
+      message: "Teacher registered successfully!",
+      teacher: {
+        _id: teacher._id,
+        name: teacher.name,
+        email: teacher.email,
+        subject: teacher.subject
+      }
+    });
   } catch (error) {
     res.status(500).json({
       message: "Teacher registration failed",
